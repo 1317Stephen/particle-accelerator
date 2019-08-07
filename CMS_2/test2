@@ -1,0 +1,162 @@
+global coords_LHC coords_SPS coords_TTS2 coords_PS
+[coords_LHC, h_LHC] = ellipse3D(26700, 26700, 0, 0, 0);
+[coords_SPS, h_SPS] = ellipse3D(6900, 6900, 19800/sqrt(2), -19800/sqrt(2),  0);
+[coords_PS, h_PS] = ellipse3D(628, 628,  32523 , -30743 , 0, 90);
+points_number = 200;
+coords_TTS2 = zeros(3,points_number );
+coords_TTS2(1,:) = linspace( coords_PS(1,end), coords_SPS(1,262), points_number );
+coords_TTS2(2,:) = linspace( coords_PS(2,end), coords_SPS(2,262), points_number );
+[coords_PSB, h_PSB] = ellipse3D(628, 628, 22983 , -29693 , 0,80);
+points_numb_iso = 250;
+coords_iso =  zeros(3,points_numb_iso );
+coords_iso(1,:) = linspace( coords_PSB(1,end), coords_PS(1,1), points_numb_iso );
+coords_iso(2,:) = linspace( coords_PSB(2,end), coords_PS(2,1), points_numb_iso );
+
+time_increase = 0.0005;
+
+
+[coords_LHC, h_LHC] = ellipse3D(26700, 26700, 0, 0, 0);
+
+for i=1:length(coords_PSB(1,:))
+	hFig = figure(1);
+	set(hFig,'units','normalized','outerposition',[0 0 1 1]);
+	px_PSB = coords_PSB(1,i);
+	py_PSB = coords_PSB(2,i);
+	pz_PSB = coords_PSB(3,i);
+
+	plot3( coords_LHC(1,:), coords_LHC(2,:), coords_LHC(3,:)); hold on;
+	plot3( coords_SPS(1,:), coords_SPS(2,:), coords_SPS(3,:)); hold on;
+	plot3( coords_TTS2(1,:), coords_TTS2(2,:), coords_TTS2(3,:)); hold on;
+	plot3( coords_PS(1,:), coords_PS(2,:), coords_PS(3,:)); hold on;
+	plot3( coords_iso(1,:), coords_iso(2,:), coords_iso(3,:)); hold on;
+		
+	plot3( coords_PSB(1,:), coords_PSB(2,:), coords_PSB(3,:), px_PSB, py_PSB, pz_PSB,'.-', 'MarkerSize',10);
+	hold off;
+	pause(0.01-time_increase *i);
+end
+
+
+for i=1:length(coords_iso(1,:))
+	hFig = figure(1);
+	set(hFig,'units','normalized','outerposition',[0 0 1 1]);
+	px_iso = coords_iso(1,i);
+	py_iso = coords_iso(2,i);
+	pz_iso = coords_iso(3,i);
+	
+	plot3( coords_LHC(1,:), coords_LHC(2,:), coords_LHC(3,:)); hold on;
+	plot3( coords_SPS(1,:), coords_SPS(2,:), coords_SPS(3,:)); hold on;
+	plot3( coords_TTS2(1,:), coords_TTS2(2,:), coords_TTS2(3,:)); hold on;
+	plot3( coords_PS(1,:), coords_PS(2,:), coords_PS(3,:)); hold on;
+	plot3( coords_PSB(1,:), coords_PSB(2,:), coords_PSB(3,:)); hold on;
+	
+	plot3( coords_iso(1,:), coords_iso(2,:), coords_iso(3,:), px_iso, py_iso, pz_iso,'.-', 'MarkerSize',10);
+	hold off;
+	pause(0.01-time_increase *i);	
+	
+end
+
+
+for i=1:length(coords_PS(1,:))
+	hFig = figure(1);
+	set(hFig,'units','normalized','outerposition',[0 0 1 1])
+	px_PS = coords_PS(1,i);
+	py_PS = coords_PS(2,i);
+	pz_PS = coords_PS(3,i);
+	
+	%px_PS_opposite = coords_PS(1,length(coords_PS(1,:))-i+1);
+	%py_PS_opposite = coords_PS(2,length(coords_PS(2,:))-i+1);
+	%pz_PS_opposite = coords_PS(3,length(coords_PS(3,:))-i+1);
+	
+	
+	plot3( coords_LHC(1,:), coords_LHC(2,:), coords_LHC(3,:)); hold on;
+	plot3( coords_SPS(1,:), coords_SPS(2,:), coords_SPS(3,:)); hold on;
+	plot3( coords_TTS2(1,:), coords_TTS2(2,:), coords_TTS2(3,:)); hold on;
+	plot3( coords_iso(1,:), coords_iso(2,:), coords_iso(3,:)); hold on;
+	plot3( coords_PSB(1,:), coords_PSB(2,:), coords_PSB(3,:)); hold on;
+	
+	plot3( coords_PS(1,:), coords_PS(2,:), coords_PS(3,:), px_PS, py_PS, pz_PS,'.-', 'MarkerSize',10);
+	hold off;
+	
+	
+	
+	pause(0.01-time_increase *i);
+end
+
+for i=1:length(coords_TTS2(1,:))
+	%f = figure(1)
+	%set(gcf, 'Position',  [100, 100, 500, 400])
+	hFig = figure(1);
+	set(hFig,'units','normalized','outerposition',[0 0 1 1])
+
+	%figure(f, 'Renderer', 'painters', 'Position', [10 10 900 600])
+	px_TTS2 = coords_TTS2(1,i);
+	py_TTS2 = coords_TTS2(2,i);
+	pz_TTS2 = coords_TTS2(3,i);
+	
+	plot3( coords_LHC(1,:), coords_LHC(2,:), coords_LHC(3,:)); hold on;
+	plot3( coords_SPS(1,:), coords_SPS(2,:), coords_SPS(3,:)); hold on;
+	plot3( coords_PS(1,:), coords_PS(2,:), coords_PS(3,:)); hold on;
+	plot3( coords_iso(1,:), coords_iso(2,:), coords_iso(3,:)); hold on;
+	plot3( coords_PSB(1,:), coords_PSB(2,:), coords_PSB(3,:)); hold on;
+	
+	plot3( coords_TTS2(1,:), coords_TTS2(2,:), coords_TTS2(3,:), px_TTS2, py_TTS2, pz_TTS2,'.-', 'MarkerSize',10);
+	hold off;
+	
+	pause(0.01-time_increase *i);
+end
+
+
+index=[262:300, 1:262]
+j=0;
+for i=index
+	hFig = figure(1);
+	set(hFig,'units','normalized','outerposition',[0 0 1 1])
+	px_SPS = coords_SPS(1,i);
+	py_SPS = coords_SPS(2,i);
+	pz_SPS = coords_SPS(3,i);
+	
+	px_SPS_opposite = coords_SPS(1,length(coords_SPS(1,:))-i+1);
+	py_SPS_opposite = coords_SPS(2,length(coords_SPS(2,:))-i+1);
+	pz_SPS_opposite = coords_SPS(3,length(coords_SPS(3,:))-i+1);
+	
+	plot3( coords_LHC(1,:), coords_LHC(2,:), coords_LHC(3,:)); hold on;
+	plot3( coords_PS(1,:), coords_PS(2,:), coords_PS(3,:)); hold on;
+	plot3( coords_TTS2(1,:), coords_TTS2(2,:), coords_TTS2(3,:)); hold on;
+	plot3( coords_iso(1,:), coords_iso(2,:), coords_iso(3,:)); hold on;
+	plot3( coords_PSB(1,:), coords_PSB(2,:), coords_PSB(3,:)); hold on;
+	
+	plot3( coords_SPS(1,:), coords_SPS(2,:), coords_SPS(3,:), px_SPS, py_SPS, pz_SPS,'.-', 'MarkerSize',20);
+	hold off;
+	
+	%pause(0.01)
+	pause(0.01-time_increase *0.1*j);
+	j=j+1;
+end
+j=0;
+for i=index
+	hFig = figure(1);
+	set(hFig,'units','normalized','outerposition',[0 0 1 1])
+	px_LHC = coords_LHC(1,i);
+	py_LHC = coords_LHC(2,i);
+	pz_LHC = coords_LHC(3,i);
+	
+	px_LHC_opposite = coords_LHC(1,length(coords_LHC(1,:))-i+1);
+	py_LHC_opposite = coords_LHC(2,length(coords_LHC(2,:))-i+1);
+	pz_LHC_opposite = coords_LHC(3,length(coords_LHC(3,:))-i+1);
+	
+	plot3( coords_SPS(1,:), coords_SPS(2,:), coords_SPS(3,:)); hold on;
+	plot3( coords_PS(1,:), coords_PS(2,:), coords_PS(3,:)); hold on;
+	plot3( coords_TTS2(1,:), coords_TTS2(2,:), coords_TTS2(3,:)); hold on;
+	plot3( coords_iso(1,:), coords_iso(2,:), coords_iso(3,:)); hold on;	
+	plot3( coords_PSB(1,:), coords_PSB(2,:), coords_PSB(3,:)); hold on;
+	
+	plot3( coords_LHC(1,:), coords_LHC(2,:), coords_LHC(3,:), px_LHC, py_LHC, pz_LHC,'.-', 'MarkerSize',20);
+	%hold on;
+	%plot3( coords_LHC(1,:), coords_LHC(2,:), coords_LHC(3,:), px_LHC_opposite, py_LHC_opposite, pz_LHC_opposite,'.-', 'MarkerSize',20);
+	hold off;
+
+	%axis off;
+	pause(0.03-time_increase*j)
+	%pause(0.01-time_increase *j);
+	%j=j+1;
+end
